@@ -13,7 +13,7 @@ public class MyFrame extends Frame implements ActionListener{
         clickedNum = new Label("0");
         add(clickedNum);
         for (int i = 0; i < 10; i++) {
-            numButton[i] = new Button(String.valueOf(i + 1));
+            numButton[i] = new Button(String.valueOf(i));
             numButton[i].addActionListener(this);
             add(numButton[i]);
         }
