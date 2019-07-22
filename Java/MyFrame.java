@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class MyFrame extends Frame implements ActionListener{
@@ -8,6 +10,8 @@ public class MyFrame extends Frame implements ActionListener{
     Label clickedNum;
 
     public MyFrame() {
+        ArrayList<String> symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "="));
+
         setTitle("CalculatorApp");
         setSize(800, 600);
         addWindowListener(new MyWindowAdapter());
@@ -20,6 +24,12 @@ public class MyFrame extends Frame implements ActionListener{
             button.get(buttonName).addActionListener(this);
             add(button.get(buttonName));
         }
+        for (String buttonName : symbols) {
+            button.put(buttonName, new Button(buttonName));
+            button.get(buttonName).addActionListener(this);
+            add(button.get(buttonName));
+        }
+
     }
     public void actionPerformed(ActionEvent ae) {
         for (String key: button.keySet()) {
