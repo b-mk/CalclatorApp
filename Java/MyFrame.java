@@ -1,8 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 
 public class MyFrame extends Frame implements ActionListener{
-    Button numButton[] = new Button[10];
+    HashMap<String, Button>button = new HashMap<>();
+    //Button numButton[] = new Button[10];
     Label clickedNum;
 
     public MyFrame() {
@@ -13,18 +15,25 @@ public class MyFrame extends Frame implements ActionListener{
         clickedNum = new Label("0");
         add(clickedNum);
         for (int i = 0; i < 10; i++) {
-            numButton[i] = new Button(String.valueOf(i));
-            numButton[i].addActionListener(this);
-            add(numButton[i]);
+            String buttonName = String.valueOf(i);
+            button.put(buttonName, new Button(buttonName));
+            button.get(buttonName).addActionListener(this);
+            add(button.get(buttonName));
         }
     }
     public void actionPerformed(ActionEvent ae) {
-        for (int i = 0; i < 10; i++) {
-            if (ae.getSource() == numButton[i]) {
-                System.out.println("Button" + i + " was clicked.");
-                clickedNum.setText(String.valueOf(i));
-                break;
+        for (String key: button.keySet()) {
+            if (ae.getSource() == button.get(key)) {
+                System.out.println("Button" + key + "was clicked.");
+                clickedNum.setText(key);
             }
         }
+        // for (int i = 0; i < 10; i++) {
+        //     if (ae.getSource() == numButton[i]) {
+        //         System.out.println("Button" + i + " was clicked.");
+        //         clickedNum.setText(String.valueOf(i));
+        //         break;
+        //     }
+        // }
     }
 }
