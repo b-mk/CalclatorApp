@@ -2,24 +2,26 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MyFrame extends Frame implements ActionListener{
-    Button b1;
-    Label l1;
+    Button numButton[] = new Button[10];
+    Label clickedNum;
 
     public MyFrame() {
-        setTitle("Test Window");
+        setTitle("CalculatorApp");
         setSize(800, 600);
         addWindowListener(new MyWindowAdapter());
         setLayout(new FlowLayout());
-        l1 = new Label("0");
-        add(l1);
-        b1 = new Button("Button1");
-        b1.addActionListener(this);
-        add(b1);
+        clickedNum = new Label("0");
+        add(clickedNum);
+        for (int i = 0; i < 10; i++) {
+            numButton[i] = new Button(String.valueOf(i + 1));
+            numButton[i].addActionListener(this);
+            add(numButton[i]);
+        }
     }
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == b1) {
-            System.out.println("Button1 was clicked");
-            l1.setText("test");
+        if (ae.getSource().getClass().getEnclosingClass().getName() == "Button") {
+            System.out.println("Button was clicked");
+            clickedNum.setText("test");
         }
     }
 }
