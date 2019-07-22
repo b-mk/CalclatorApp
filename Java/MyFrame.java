@@ -19,9 +19,12 @@ public class MyFrame extends Frame implements ActionListener{
         }
     }
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource().getClass().getEnclosingClass().getName() == "Button") {
-            System.out.println("Button was clicked");
-            clickedNum.setText("test");
+        for (int i = 0; i < 10; i++) {
+            if (ae.getSource() == numButton[i]) {
+                System.out.println("Button" + i + " was clicked.");
+                clickedNum.setText(String.valueOf(i));
+                break;
+            }
         }
     }
 }
