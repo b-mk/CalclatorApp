@@ -41,7 +41,7 @@ public class MyFrame extends Frame implements ActionListener{
         System.out.println(pressedButton + "was clicked.");
         boolean flag = true;
         if (pressedButton.equals("=")) {
-            clickedNum.setText(calculationResult());
+            dispResult(calculationResult());
             tmp = 0;
             flag = false;
         }
@@ -52,7 +52,6 @@ public class MyFrame extends Frame implements ActionListener{
                         calculationResult();
                     }
                     this.operand = operand;
-                    clickedNum.setText(String.valueOf(result));
                     flag = false;
                     tmp = 0;
                 }
@@ -60,6 +59,7 @@ public class MyFrame extends Frame implements ActionListener{
         }
         if (flag) {
             tmp = tmp * 10 + Integer.valueOf(pressedButton);
+            dispResult(String.valueOf(tmp));
         }
         System.out.println("tmp = " + tmp + ", result = " + result);
     }
@@ -86,5 +86,9 @@ public class MyFrame extends Frame implements ActionListener{
         } catch(Exception e) {
             return String.valueOf(e);
         }
+    }
+
+    private void dispResult(String message) {
+        clickedNum.setText(message);
     }
 }
