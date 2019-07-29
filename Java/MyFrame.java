@@ -9,7 +9,7 @@ public class MyFrame extends Frame implements ActionListener{
 
     Label clickedNum;
     int result, tmp;
-    char operand;
+    String operand;
     ArrayList<String> symbols;
 
     public MyFrame() {
@@ -34,47 +34,55 @@ public class MyFrame extends Frame implements ActionListener{
         }
 
     }
+
     public void actionPerformed(ActionEvent ae) {
-        String pressedButton = ae.getSource();
-        boolean flag;
-        if (pressedButton == "=") {
-            calculationResult();
-            clickedNum.setText(String.valueOf(result));
+        Button a = (Button)ae.getSource();
+        String pressedButton = a.getLabel();
+        System.out.println(pressedButton + "was clicked.");
+        boolean flag = true;
+        if (pressedButton.equals("=")) {
+            clickedNum.setText(calculationResult());
+            tmp = 0;
             flag = false;
         }
         if (flag) {
             for (String operand : symbols) {
-                if (pressedButton == operand) {
+                if (pressedButton.equals(operand)) {
+                    if (this.operand.equals("")) {
+                        calculationResult();
+                    }
                     this.operand = operand;
-                    clickedNum.setText("");
+                    clickedNum.setText(String.valueOf(result));
                     flag = false;
+                    tmp = 0;
                 }
             }  
         }
         if (flag) {
-            tmp = tmp * 10 + pressedButton;
+            tmp = tmp * 10 + Integer.valueOf(pressedButton);
         }
+        System.out.println("tmp = " + tmp + ", result = " + result);
     }
 
-    private boolean calculationResult() {
+    private String calculationResult() {
         try {
             switch(operand) {
-                case '+':
+                case "+":
                     result += tmp;
                     break;
-                case '-':
+                case "-":
                     result -= tmp;
                     break;
-                case '*':
+                case "*":
                     result *= tmp;
                     break;
-                case '/':
+                case "/":
                     result /= tmp;
                     break;
             }
-            return true;
+            return String.valueOf(result);
         } catch(Exception e) {
-            return false;
+            return String.valueOf(e);
         }
     }
 }
