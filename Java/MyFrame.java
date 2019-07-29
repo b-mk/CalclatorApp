@@ -6,11 +6,14 @@ import java.util.HashMap;
 
 public class MyFrame extends Frame implements ActionListener{
     HashMap<String, Button>button = new HashMap<>();
-    //Button numButton[] = new Button[10];
+
     Label clickedNum;
+    int result, tmp;
+    char operand;
+    ArrayList<String> symbols;
 
     public MyFrame() {
-        ArrayList<String> symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "="));
+        symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "="));
 
         setTitle("CalculatorApp");
         setSize(800, 600);
@@ -32,18 +35,46 @@ public class MyFrame extends Frame implements ActionListener{
 
     }
     public void actionPerformed(ActionEvent ae) {
-        for (String key: button.keySet()) {
-            if (ae.getSource() == button.get(key)) {
-                System.out.println("Button" + key + "was clicked.");
-                clickedNum.setText(key);
-            }
+        String pressedButton = ae.getSource();
+        boolean flag;
+        if (pressedButton == "=") {
+            calculationResult();
+            clickedNum.setText(String.valueOf(result));
+            flag = false;
         }
-        // for (int i = 0; i < 10; i++) {
-        //     if (ae.getSource() == numButton[i]) {
-        //         System.out.println("Button" + i + " was clicked.");
-        //         clickedNum.setText(String.valueOf(i));
-        //         break;
-        //     }
-        // }
+        if (flag) {
+            for (String operand : symbols) {
+                if (pressedButton == operand) {
+                    this.operand = operand;
+                    clickedNum.setText("");
+                    flag = false;
+                }
+            }  
+        }
+        if (flag) {
+            tmp = tmp * 10 + pressedButton;
+        }
+    }
+
+    private boolean calculationResult() {
+        try {
+            switch(operand) {
+                case '+':
+                    result += tmp;
+                    break;
+                case '-':
+                    result -= tmp;
+                    break;
+                case '*':
+                    result *= tmp;
+                    break;
+                case '/':
+                    result /= tmp;
+                    break;
+            }
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
     }
 }
