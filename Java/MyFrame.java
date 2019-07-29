@@ -13,7 +13,7 @@ public class MyFrame extends Frame implements ActionListener{
     ArrayList<String> symbols;
 
     public MyFrame() {
-        symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "="));
+        symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "=", "C"));
 
         setTitle("CalculatorApp");
         setSize(800, 600);
@@ -43,6 +43,13 @@ public class MyFrame extends Frame implements ActionListener{
         if (pressedButton.equals("=")) {
             dispResult(calculationResult());
             tmp = 0;
+            flag = false;
+        }
+        if (pressedButton.equals("C")) {
+            dispResult("");
+            tmp = 0;
+            result = 0;
+            operand = "";
             flag = false;
         }
         if (flag) {
