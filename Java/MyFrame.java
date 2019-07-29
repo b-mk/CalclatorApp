@@ -9,7 +9,7 @@ public class MyFrame extends Frame implements ActionListener{
 
     Label clickedNum;
     int result, tmp;
-    String operand;
+    String operand = "";
     ArrayList<String> symbols;
 
     public MyFrame() {
