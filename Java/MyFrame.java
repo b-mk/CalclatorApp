@@ -8,7 +8,7 @@ public class MyFrame extends Frame implements ActionListener{
     HashMap<String, Button>button = new HashMap<>();
 
     Label clickedNum;
-    int result, tmp;
+    float result, tmp;
     String operand = "";
     ArrayList<String> symbols;
 
