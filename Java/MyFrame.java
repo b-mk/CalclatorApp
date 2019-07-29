@@ -8,12 +8,13 @@ public class MyFrame extends Frame implements ActionListener{
     HashMap<String, Button>button = new HashMap<>();
 
     Label clickedNum;
-    float result, tmp;
+    float result, tmp, digitNumber = 0.1f;
     String operand = "";
+    boolean isTmpDemical = false;
     ArrayList<String> symbols;
 
     public MyFrame() {
-        symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "=", "C"));
+        symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "=", "C", "."));
 
         setTitle("CalculatorApp");
         setSize(800, 600);
@@ -42,14 +43,18 @@ public class MyFrame extends Frame implements ActionListener{
         boolean flag = true;
         if (pressedButton.equals("=")) {
             dispResult(calculationResult());
-            tmp = 0;
+            resetTmp();
             flag = false;
         }
-        if (pressedButton.equals("C")) {
+        else if (pressedButton.equals("C")) {
             dispResult("");
-            tmp = 0;
+            resetTmp();
             result = 0;
             operand = "";
+            flag = false;
+        }
+        else if (pressedButton.equals(".")) {
+            isTmpDemical = true;
             flag = false;
         }
         if (flag) {
@@ -58,15 +63,26 @@ public class MyFrame extends Frame implements ActionListener{
                     dispResult(calculationResult());
                     this.operand = operand;
                     flag = false;
-                    tmp = 0;
+                    resetTmp();
                 }
             }  
         }
         if (flag) {
-            tmp = tmp * 10 + Integer.valueOf(pressedButton);
+            if (isTmpDemical) {
+                tmp = tmp + Integer.valueOf(pressedButton) * digitNumber;
+                digitNumber *= 0.1;
+            } else {
+                tmp = tmp * 10 + Integer.valueOf(pressedButton);
+            }
             dispResult(String.valueOf(tmp));
         }
         System.out.println("tmp = " + tmp + ", result = " + result + ", operand = " + operand);
+    }
+
+    private void resetTmp() {
+        tmp = 0;
+        isTmpDemical = false;
+        digitNumber = 0.1f;
     }
 
     private String calculationResult() {
