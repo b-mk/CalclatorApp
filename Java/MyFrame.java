@@ -79,6 +79,8 @@ public class MyFrame extends Frame implements ActionListener{
                 case "/":
                     result /= tmp;
                     break;
+                default:
+                    result = tmp;
             }
             return String.valueOf(result);
         } catch(Exception e) {
