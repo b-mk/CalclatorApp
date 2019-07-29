@@ -48,9 +48,7 @@ public class MyFrame extends Frame implements ActionListener{
         if (flag) {
             for (String operand : symbols) {
                 if (pressedButton.equals(operand)) {
-                    if (this.operand.equals("")) {
-                        calculationResult();
-                    }
+                    dispResult(calculationResult());
                     this.operand = operand;
                     flag = false;
                     tmp = 0;
@@ -61,7 +59,7 @@ public class MyFrame extends Frame implements ActionListener{
             tmp = tmp * 10 + Integer.valueOf(pressedButton);
             dispResult(String.valueOf(tmp));
         }
-        System.out.println("tmp = " + tmp + ", result = " + result);
+        System.out.println("tmp = " + tmp + ", result = " + result + ", operand = " + operand);
     }
 
     private String calculationResult() {
