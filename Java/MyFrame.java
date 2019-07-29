@@ -41,6 +41,7 @@ public class MyFrame extends Frame implements ActionListener{
         String pressedButton = a.getLabel();
         System.out.println(pressedButton + "was clicked.");
         boolean flag = true;
+        
         if (pressedButton.equals("=")) {
             dispResult(calculationResult());
             resetTmp();
@@ -102,6 +103,7 @@ public class MyFrame extends Frame implements ActionListener{
                     break;
                 default:
                     result = tmp;
+                    break;
             }
             return String.valueOf(result);
         } catch(Exception e) {
