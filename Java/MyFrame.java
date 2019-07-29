@@ -14,7 +14,7 @@ public class MyFrame extends Frame implements ActionListener{
     ArrayList<String> symbols;
 
     public MyFrame() {
-        symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "=", "C", "."));
+        symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "=", ".", "C"));
 
         setTitle("CalculatorApp");
         setSize(800, 600);
