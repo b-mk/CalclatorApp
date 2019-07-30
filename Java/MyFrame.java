@@ -10,7 +10,7 @@ public class MyFrame extends Frame implements ActionListener{
     Label clickedNum;
     double result, tmp, digitNumber = 0.1;
     char operator = 'n';
-    boolean isTmpDemical = false, isOperatorClicked;
+    boolean isTmpDemical = false, isOperatorClicked = false;
     ArrayList<Character> operators;
 
     public MyFrame() {
@@ -28,8 +28,8 @@ public class MyFrame extends Frame implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent ae) {
-        Button a = (Button)ae.getSource();
-        Character pressedButton = a.getLabel().toCharArray()[0];
+        Button b = (Button)ae.getSource();
+        Character pressedButton = b.getLabel().toCharArray()[0];
         System.out.println(pressedButton + "was clicked.");
         boolean flag = true;
         
@@ -38,6 +38,7 @@ public class MyFrame extends Frame implements ActionListener{
             resetTmp();
             this.operator = ' ';
             flag = false;
+            isOperatorClicked = false;
         }
         else if (pressedButton == 'C') {
             dispResult("");
@@ -45,17 +46,19 @@ public class MyFrame extends Frame implements ActionListener{
             result = 0;
             operator = 'n';
             flag = false;
+            isOperatorClicked = false;
         }
         else if (pressedButton == '.') {
             isTmpDemical = true;
             flag = false;
+            isOperatorClicked = false;
         }
         if (flag) {
             for (Character operator : operators) {
-                //TODO: fix later
                 if (pressedButton == operator) {
-                    dispResult(calculationResult());
+                    if (!isOperatorClicked) dispResult(calculationResult());
                     this.operator = operator;
+                    isOperatorClicked = true;
                     flag = false;
                     resetTmp();
                 }
@@ -69,6 +72,7 @@ public class MyFrame extends Frame implements ActionListener{
                 tmp = tmp * 10 + Double.valueOf(Character.toString(pressedButton));
             }
             dispResult(String.valueOf(tmp));
+            isOperatorClicked = false;
         }
         System.out.println("tmp = " + tmp + ", result = " + result + ", operator = " + operator);
     }
