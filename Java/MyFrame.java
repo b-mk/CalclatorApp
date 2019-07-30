@@ -22,19 +22,9 @@ public class MyFrame extends Frame implements ActionListener{
         setLayout(new FlowLayout());
         clickedNum = new Label("0");
         add(clickedNum);
-        for (int i = 0; i < 10; i++) {
-            String buttonName = String.valueOf(i);
-            button.put(buttonName, new Button(buttonName));
-            button.get(buttonName).addActionListener(this);
-            add(button.get(buttonName));
-        }
-        for (Character s : operators) {
-            String buttonName = String.valueOf(s);
-            button.put(buttonName, new Button(buttonName));
-            button.get(buttonName).addActionListener(this);
-            add(button.get(buttonName));
-        }
 
+        makeButton(10);
+        makeButton(operators);
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -116,5 +106,22 @@ public class MyFrame extends Frame implements ActionListener{
 
     private void dispResult(String message) {
         clickedNum.setText(message);
+    }
+
+    private void makeButton(int n) {
+        for (int i = 0; i < n; i++) {
+            String buttonName = String.valueOf(i);
+            button.put(buttonName, new Button(buttonName));
+            button.get(buttonName).addActionListener(this);
+            add(button.get(buttonName));
+        }
+    }
+    private void makeButton(ArrayList<Character> c) {
+        for (Character name : c) {
+            String buttonName = String.valueOf(name);
+            button.put(buttonName, new Button(buttonName));
+            button.get(buttonName).addActionListener(this);
+            add(button.get(buttonName));
+        }
     }
 }
