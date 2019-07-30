@@ -15,7 +15,7 @@ public class MyFrame extends Frame implements ActionListener{
 
     public MyFrame() {
         setLayout();
-        
+
         operators = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.', 'C'));
         makeButton(10);
         makeButton(operators);
@@ -105,7 +105,7 @@ public class MyFrame extends Frame implements ActionListener{
 
     private void setLayout() {
         setTitle("CalculatorApp");
-        setSize(800, 600);
+        setSize(400, 300);
         addWindowListener(new MyWindowAdapter());
         setLayout(new FlowLayout());
         displayContent = new Label("0");
