@@ -36,7 +36,7 @@ public class MyFrame extends Frame implements ActionListener{
         if (pressedButton == '=') {
             dispResult(calculationResult());
             resetTmp();
-            this.operator = ' ';
+            operator = ' ';
             isOperatorClicked = false;
         }
         else if (pressedButton == 'C') {
@@ -96,6 +96,7 @@ public class MyFrame extends Frame implements ActionListener{
                     result *= tmp;
                     break;
                 case '/':
+                    if(tmp == 0) return ("Do not divide by 0. Press 'C'.");
                     result /= tmp;
                     break;
                 case 'n':
