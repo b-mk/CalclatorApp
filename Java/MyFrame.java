@@ -29,31 +29,31 @@ public class MyFrame extends Frame implements ActionListener{
 
     public void actionPerformed(ActionEvent ae) {
         Button a = (Button)ae.getSource();
-        String pressedButton = a.getLabel();
+        Character pressedButton = a.getLabel().toCharArray()[0];
         System.out.println(pressedButton + "was clicked.");
         boolean flag = true;
         
-        if (pressedButton.equals("=")) {
+        if (pressedButton == '=') {
             dispResult(calculationResult());
             resetTmp();
             this.operator = ' ';
             flag = false;
         }
-        else if (pressedButton.equals("C")) {
+        else if (pressedButton == 'C') {
             dispResult("");
             resetTmp();
             result = 0;
             operator = 'n';
             flag = false;
         }
-        else if (pressedButton.equals(".")) {
+        else if (pressedButton == '.') {
             isTmpDemical = true;
             flag = false;
         }
         if (flag) {
             for (Character operator : operators) {
                 //TODO: fix later
-                if (pressedButton.toCharArray()[0] == operator) {
+                if (pressedButton == operator) {
                     dispResult(calculationResult());
                     this.operator = operator;
                     flag = false;
@@ -63,10 +63,10 @@ public class MyFrame extends Frame implements ActionListener{
         }
         if (flag) {
             if (isTmpDemical) {
-                tmp = tmp + Integer.valueOf(pressedButton) * digitNumber;
+                tmp = tmp + Double.valueOf(Character.toString(pressedButton)) * digitNumber;
                 digitNumber *= 0.1;
             } else {
-                tmp = tmp * 10 + Integer.valueOf(pressedButton);
+                tmp = tmp * 10 + Double.valueOf(Character.toString(pressedButton));
             }
             dispResult(String.valueOf(tmp));
         }
