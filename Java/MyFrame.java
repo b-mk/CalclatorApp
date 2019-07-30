@@ -21,37 +21,38 @@ public class MyFrame extends Frame implements ActionListener{
         operators = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.'));
         
         setLayout(new GridLayout(6, 5));
-        Panel resultArea = new Panel();
-        Panel numbersArea = new Panel();
-        Panel clearArea = new Panel();
-        Panel operatorsArea = new Panel();
 
-        add(resultArea);
-        add(numbersArea);
-        add(clearArea);
-        add(operatorsArea);
+        final int panelNum = 4; 
+        Panel panels[] = new Panel[panelNum];
+        int coordinate[][] = {{1, 1}, {1, 3}, {4, 3}, {4, 4}};
 
-        resultArea.setLayout(new GridLayout(1, 1));
-        numbersArea.setLayout(new GridLayout(1, 3));
-        clearArea.setLayout(new GridLayout(4, 3));
-        operatorsArea.setLayout(new GridLayout(4, 4));
-
-        resultArea.add(resultLabel);
+        /*
+        panels[0]:resultArea
+        panels[1]:numbersArea
+        panels[2]:clearArea
+        panels[3]:operatorsArea
+        */
+        for (int i = 0; i < panelNum; i++) {
+            panels[i] = new Panel();
+            add(panels[i]);
+            panels[i].setLayout(new GridLayout(coordinate[i][0], coordinate[i][1]));
+        }
+        panels[0].add(resultLabel);
         button.put("C", new Button("C"));
         button.get("C").addActionListener(this);
-        clearArea.add(button.get("C"));
+        panels[2].add(button.get("C"));
 
         for (int i = 0; i < 10; i++) {
             String buttonName = String.valueOf(i);
             button.put(buttonName, new Button(buttonName));
             button.get(buttonName).addActionListener(this);
-            numbersArea.add(button.get(buttonName));
+            panels[1].add(button.get(buttonName));
         }
         for (Character name : operators) {
             String buttonName = String.valueOf(name);
             button.put(buttonName, new Button(buttonName));
             button.get(buttonName).addActionListener(this);
-            operatorsArea.add(button.get(buttonName));
+            panels[3].add(button.get(buttonName));
         }
         //setBackground(Color.MAGENTA);
 
