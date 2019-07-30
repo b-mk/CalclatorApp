@@ -9,12 +9,12 @@ public class MyFrame extends Frame implements ActionListener{
 
     Label clickedNum;
     float result, tmp, digitNumber = 0.1f;
-    String operand = "none";
-    boolean isTmpDemical = false;
-    ArrayList<String> symbols;
+    char operand = 'n';
+    boolean isTmpDemical = false, isOperandClicked;
+    ArrayList<Character> operands;
 
     public MyFrame() {
-        symbols = new ArrayList<String>(Arrays.asList("+", "-", "*", "/", "=", ".", "C"));
+        operands = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.', 'C'));
 
         setTitle("CalculatorApp");
         setSize(800, 600);
@@ -28,7 +28,8 @@ public class MyFrame extends Frame implements ActionListener{
             button.get(buttonName).addActionListener(this);
             add(button.get(buttonName));
         }
-        for (String buttonName : symbols) {
+        for (Character s : operands) {
+            String buttonName = String.valueOf(s);
             button.put(buttonName, new Button(buttonName));
             button.get(buttonName).addActionListener(this);
             add(button.get(buttonName));
@@ -45,14 +46,14 @@ public class MyFrame extends Frame implements ActionListener{
         if (pressedButton.equals("=")) {
             dispResult(calculationResult());
             resetTmp();
-            this.operand = "";
+            this.operand = ' ';
             flag = false;
         }
         else if (pressedButton.equals("C")) {
             dispResult("");
             resetTmp();
             result = 0;
-            operand = "none";
+            operand = 'n';
             flag = false;
         }
         else if (pressedButton.equals(".")) {
@@ -60,8 +61,9 @@ public class MyFrame extends Frame implements ActionListener{
             flag = false;
         }
         if (flag) {
-            for (String operand : symbols) {
-                if (pressedButton.equals(operand)) {
+            for (Character operand : operands) {
+                //TODO: fix later
+                if (pressedButton.toCharArray()[0] == operand) {
                     dispResult(calculationResult());
                     this.operand = operand;
                     flag = false;
@@ -90,19 +92,19 @@ public class MyFrame extends Frame implements ActionListener{
     private String calculationResult() {
         try {
             switch(operand) {
-                case "+":
+                case '+':
                     result += tmp;
                     break;
-                case "-":
+                case '-':
                     result -= tmp;
                     break;
-                case "*":
+                case '*':
                     result *= tmp;
                     break;
-                case "/":
+                case '/':
                     result /= tmp;
                     break;
-                case "none":
+                case 'n':
                     result = tmp;
                     break;
             }
