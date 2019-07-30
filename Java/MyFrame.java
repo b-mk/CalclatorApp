@@ -7,22 +7,16 @@ import java.util.HashMap;
 public class MyFrame extends Frame implements ActionListener{
     HashMap<String, Button>button = new HashMap<>();
 
-    Label clickedNum;
+    Label displayContent;
     double result, tmp, digitNumber = 0.1;
     char operator = 'n';
     boolean isTmpDemical = false, isOperatorClicked = false;
     ArrayList<Character> operators;
 
     public MyFrame() {
+        setLayout();
+        
         operators = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.', 'C'));
-
-        setTitle("CalculatorApp");
-        setSize(800, 600);
-        addWindowListener(new MyWindowAdapter());
-        setLayout(new FlowLayout());
-        clickedNum = new Label("0");
-        add(clickedNum);
-
         makeButton(10);
         makeButton(operators);
     }
@@ -34,13 +28,13 @@ public class MyFrame extends Frame implements ActionListener{
         System.out.println(pressedButton + "was clicked.");
         
         if (pressedButton == '=') {
-            dispResult(calculationResult());
+            displayContent.setText(calculationResult());
             resetTmp();
             operator = ' ';
             isOperatorClicked = false;
         }
         else if (pressedButton == 'C') {
-            dispResult("");
+            displayContent.setText("");
             resetTmp();
             result = 0;
             operator = 'n';
@@ -54,7 +48,7 @@ public class MyFrame extends Frame implements ActionListener{
             boolean isNumber = true;
             for (Character operator : operators) {
                 if (pressedButton == operator) {
-                    if (!isOperatorClicked) dispResult(calculationResult());
+                    if (!isOperatorClicked) displayContent.setText(calculationResult());
                     this.operator = operator;
                     isOperatorClicked = true;
                     isNumber = false;
@@ -69,7 +63,7 @@ public class MyFrame extends Frame implements ActionListener{
                 } else {
                     tmp = tmp * 10 + Double.valueOf(Character.toString(pressedButton));
                 }
-                dispResult(String.valueOf(tmp));
+                displayContent.setText(String.valueOf(tmp));
                 isOperatorClicked = false;
     
             }
@@ -109,8 +103,13 @@ public class MyFrame extends Frame implements ActionListener{
         }
     }
 
-    private void dispResult(String message) {
-        clickedNum.setText(message);
+    private void setLayout() {
+        setTitle("CalculatorApp");
+        setSize(800, 600);
+        addWindowListener(new MyWindowAdapter());
+        setLayout(new FlowLayout());
+        displayContent = new Label("0");
+        add(displayContent);
     }
 
     private void makeButton(int n) {
@@ -129,4 +128,5 @@ public class MyFrame extends Frame implements ActionListener{
             add(button.get(buttonName));
         }
     }
+
 }
