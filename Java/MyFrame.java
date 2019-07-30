@@ -9,12 +9,12 @@ public class MyFrame extends Frame implements ActionListener{
 
     Label clickedNum;
     float result, tmp, digitNumber = 0.1f;
-    char operand = 'n';
-    boolean isTmpDemical = false, isOperandClicked;
-    ArrayList<Character> operands;
+    char operator = 'n';
+    boolean isTmpDemical = false, isoperatorClicked;
+    ArrayList<Character> operators;
 
     public MyFrame() {
-        operands = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.', 'C'));
+        operators = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.', 'C'));
 
         setTitle("CalculatorApp");
         setSize(800, 600);
@@ -28,7 +28,7 @@ public class MyFrame extends Frame implements ActionListener{
             button.get(buttonName).addActionListener(this);
             add(button.get(buttonName));
         }
-        for (Character s : operands) {
+        for (Character s : operators) {
             String buttonName = String.valueOf(s);
             button.put(buttonName, new Button(buttonName));
             button.get(buttonName).addActionListener(this);
@@ -46,14 +46,14 @@ public class MyFrame extends Frame implements ActionListener{
         if (pressedButton.equals("=")) {
             dispResult(calculationResult());
             resetTmp();
-            this.operand = ' ';
+            this.operator = ' ';
             flag = false;
         }
         else if (pressedButton.equals("C")) {
             dispResult("");
             resetTmp();
             result = 0;
-            operand = 'n';
+            operator = 'n';
             flag = false;
         }
         else if (pressedButton.equals(".")) {
@@ -61,11 +61,11 @@ public class MyFrame extends Frame implements ActionListener{
             flag = false;
         }
         if (flag) {
-            for (Character operand : operands) {
+            for (Character operator : operators) {
                 //TODO: fix later
-                if (pressedButton.toCharArray()[0] == operand) {
+                if (pressedButton.toCharArray()[0] == operator) {
                     dispResult(calculationResult());
-                    this.operand = operand;
+                    this.operator = operator;
                     flag = false;
                     resetTmp();
                 }
@@ -80,7 +80,7 @@ public class MyFrame extends Frame implements ActionListener{
             }
             dispResult(String.valueOf(tmp));
         }
-        System.out.println("tmp = " + tmp + ", result = " + result + ", operand = " + operand);
+        System.out.println("tmp = " + tmp + ", result = " + result + ", operator = " + operator);
     }
 
     private void resetTmp() {
@@ -91,7 +91,7 @@ public class MyFrame extends Frame implements ActionListener{
 
     private String calculationResult() {
         try {
-            switch(operand) {
+            switch(operator) {
                 case '+':
                     result += tmp;
                     break;
