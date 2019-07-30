@@ -7,18 +7,55 @@ import java.util.HashMap;
 public class MyFrame extends Frame implements ActionListener{
     HashMap<String, Button>button = new HashMap<>();
 
-    Label displayContent;
+    Label resultLabel;
     double result, tmp, digitNumber = 0.1;
     char operator = 'n';
     boolean isTmpDemical = false, isOperatorClicked = false;
     ArrayList<Character> operators;
 
     public MyFrame() {
-        setLayout();
+        setTitle("CalculatorApp");
+        addWindowListener(new MyWindowAdapter());
 
-        operators = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.', 'C'));
-        makeButton(10);
-        makeButton(operators);
+        resultLabel = new Label("0", Label.CENTER);
+        operators = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.'));
+        
+        setLayout(new GridLayout(6, 5));
+        Panel resultArea = new Panel();
+        Panel numbersArea = new Panel();
+        Panel clearArea = new Panel();
+        Panel operatorsArea = new Panel();
+
+        add(resultArea);
+        add(numbersArea);
+        add(clearArea);
+        add(operatorsArea);
+
+        resultArea.setLayout(new GridLayout(1, 1));
+        numbersArea.setLayout(new GridLayout(1, 3));
+        clearArea.setLayout(new GridLayout(4, 3));
+        operatorsArea.setLayout(new GridLayout(4, 4));
+
+        resultArea.add(resultLabel);
+        button.put("C", new Button("C"));
+        button.get("C").addActionListener(this);
+        clearArea.add(button.get("C"));
+
+        for (int i = 0; i < 10; i++) {
+            String buttonName = String.valueOf(i);
+            button.put(buttonName, new Button(buttonName));
+            button.get(buttonName).addActionListener(this);
+            numbersArea.add(button.get(buttonName));
+        }
+        for (Character name : operators) {
+            String buttonName = String.valueOf(name);
+            button.put(buttonName, new Button(buttonName));
+            button.get(buttonName).addActionListener(this);
+            operatorsArea.add(button.get(buttonName));
+        }
+        //setBackground(Color.MAGENTA);
+
+        setSize(400, 300);
     }
 
     @Override
@@ -28,13 +65,13 @@ public class MyFrame extends Frame implements ActionListener{
         System.out.println(pressedButton + "was clicked.");
         
         if (pressedButton == '=') {
-            displayContent.setText(calculationResult());
+            resultLabel.setText(calculationResult());
             resetTmp();
             operator = ' ';
             isOperatorClicked = false;
         }
         else if (pressedButton == 'C') {
-            displayContent.setText("");
+            resultLabel.setText("");
             resetTmp();
             result = 0;
             operator = 'n';
@@ -48,7 +85,7 @@ public class MyFrame extends Frame implements ActionListener{
             boolean isNumber = true;
             for (Character operator : operators) {
                 if (pressedButton == operator) {
-                    if (!isOperatorClicked) displayContent.setText(calculationResult());
+                    if (!isOperatorClicked) resultLabel.setText(calculationResult());
                     this.operator = operator;
                     isOperatorClicked = true;
                     isNumber = false;
@@ -63,7 +100,7 @@ public class MyFrame extends Frame implements ActionListener{
                 } else {
                     tmp = tmp * 10 + Double.valueOf(Character.toString(pressedButton));
                 }
-                displayContent.setText(String.valueOf(tmp));
+                resultLabel.setText(String.valueOf(tmp));
                 isOperatorClicked = false;
     
             }
@@ -100,32 +137,6 @@ public class MyFrame extends Frame implements ActionListener{
             return String.valueOf(result);
         } catch(Exception e) {
             return String.valueOf(e);
-        }
-    }
-
-    private void setLayout() {
-        setTitle("CalculatorApp");
-        setSize(400, 300);
-        addWindowListener(new MyWindowAdapter());
-        setLayout(new FlowLayout());
-        displayContent = new Label("0");
-        add(displayContent);
-    }
-
-    private void makeButton(int n) {
-        for (int i = 0; i < n; i++) {
-            String buttonName = String.valueOf(i);
-            button.put(buttonName, new Button(buttonName));
-            button.get(buttonName).addActionListener(this);
-            add(button.get(buttonName));
-        }
-    }
-    private void makeButton(ArrayList<Character> c) {
-        for (Character name : c) {
-            String buttonName = String.valueOf(name);
-            button.put(buttonName, new Button(buttonName));
-            button.get(buttonName).addActionListener(this);
-            add(button.get(buttonName));
         }
     }
 
