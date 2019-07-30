@@ -8,7 +8,7 @@ public class MyFrame extends Frame implements ActionListener{
     HashMap<String, Button>button = new HashMap<>();
 
     Label clickedNum;
-    float result, tmp, digitNumber = 0.1f;
+    double result, tmp, digitNumber = 0.1;
     char operator = 'n';
     boolean isTmpDemical = false, isoperatorClicked;
     ArrayList<Character> operators;
@@ -76,7 +76,7 @@ public class MyFrame extends Frame implements ActionListener{
     private void resetTmp() {
         tmp = 0;
         isTmpDemical = false;
-        digitNumber = 0.1f;
+        digitNumber = 0.1;
     }
 
     private String calculationResult() {
