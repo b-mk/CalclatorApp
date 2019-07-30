@@ -10,7 +10,7 @@ public class MyFrame extends Frame implements ActionListener{
     Label clickedNum;
     double result, tmp, digitNumber = 0.1;
     char operator = 'n';
-    boolean isTmpDemical = false, isoperatorClicked;
+    boolean isTmpDemical = false, isOperatorClicked;
     ArrayList<Character> operators;
 
     public MyFrame() {
