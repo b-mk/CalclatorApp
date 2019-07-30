@@ -9,7 +9,7 @@ public class MyFrame extends Frame implements ActionListener{
 
     Label clickedNum;
     float result, tmp, digitNumber = 0.1f;
-    String operand = "";
+    String operand = "none";
     boolean isTmpDemical = false;
     ArrayList<String> symbols;
 
@@ -45,13 +45,14 @@ public class MyFrame extends Frame implements ActionListener{
         if (pressedButton.equals("=")) {
             dispResult(calculationResult());
             resetTmp();
+            this.operand = "";
             flag = false;
         }
         else if (pressedButton.equals("C")) {
             dispResult("");
             resetTmp();
             result = 0;
-            operand = "";
+            operand = "none";
             flag = false;
         }
         else if (pressedButton.equals(".")) {
@@ -101,7 +102,7 @@ public class MyFrame extends Frame implements ActionListener{
                 case "/":
                     result /= tmp;
                     break;
-                default:
+                case "none":
                     result = tmp;
                     break;
             }
