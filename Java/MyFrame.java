@@ -12,7 +12,7 @@ public class MyFrame extends Frame implements ActionListener{
     char operator = 'n';
     boolean isTmpDemical = false, isOperatorClicked = false;
     ArrayList<Character> operators;
-    final int width = 400, height = 300;
+    final int width = 500, height = 400;
 
     public MyFrame() {
         setTitle("CalculatorApp");
@@ -27,8 +27,9 @@ public class MyFrame extends Frame implements ActionListener{
         Panel buttonArea = new Panel();
         add(resultArea);
         add(buttonArea);
-        resultArea.setSize(width, (int)(height * 0.2));
-        buttonArea.setSize(width, (int)(height * 0.8));
+
+        resultArea.setLayout(new GridLayout(1, 1));
+        resultArea.add(resultLabel);
 
         buttonArea.setLayout(new GridLayout(1, 2));
         Panel numbersArea = new Panel();
@@ -52,6 +53,7 @@ public class MyFrame extends Frame implements ActionListener{
 
         button.put("C", new Button("C"));
         button.get("C").addActionListener(this);
+        clearArea.setLayout(new GridLayout(1, 1));
         clearArea.add(button.get("C"));
 
         otherArea.setLayout(new GridLayout(3, 2));
