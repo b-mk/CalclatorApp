@@ -12,6 +12,7 @@ public class MyFrame extends Frame implements ActionListener{
     char operator = 'n';
     boolean isTmpDemical = false, isOperatorClicked = false;
     ArrayList<Character> operators;
+    final int width = 400, height = 300;
 
     public MyFrame() {
         setTitle("CalculatorApp");
@@ -20,42 +21,47 @@ public class MyFrame extends Frame implements ActionListener{
         resultLabel = new Label("0", Label.CENTER);
         operators = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.'));
         
-        setLayout(new GridLayout(6, 5));
+        setLayout(new GridLayout(2, 1));
+        setSize(width, height);
         Panel resultArea = new Panel();
-        Panel numbersArea = new Panel();
-        Panel clearArea = new Panel();
-        Panel operatorsArea = new Panel();
-
+        Panel buttonArea = new Panel();
         add(resultArea);
-        add(numbersArea);
-        add(clearArea);
-        add(operatorsArea);
+        add(buttonArea);
+        resultArea.setSize(width, (int)(height * 0.2));
+        buttonArea.setSize(width, (int)(height * 0.8));
 
-        resultArea.setLayout(new GridLayout(1, 1));
-        numbersArea.setLayout(new GridLayout(1, 3));
-        clearArea.setLayout(new GridLayout(4, 3));
-        operatorsArea.setLayout(new GridLayout(4, 4));
+        buttonArea.setLayout(new GridLayout(1, 2));
+        Panel numbersArea = new Panel();
+        Panel operatorsArea = new Panel();
+        buttonArea.add(numbersArea);
+        buttonArea.add(operatorsArea);
 
-        resultArea.add(resultLabel);
-        button.put("C", new Button("C"));
-        button.get("C").addActionListener(this);
-        clearArea.add(button.get("C"));
-
+        numbersArea.setLayout(new GridLayout(4, 3));
         for (int i = 0; i < 10; i++) {
             String buttonName = String.valueOf(i);
             button.put(buttonName, new Button(buttonName));
             button.get(buttonName).addActionListener(this);
             numbersArea.add(button.get(buttonName));
         }
+
+        operatorsArea.setLayout(new GridLayout(2, 1));
+        Panel clearArea = new Panel();
+        Panel otherArea = new Panel();
+        operatorsArea.add(clearArea);
+        operatorsArea.add(otherArea);
+
+        button.put("C", new Button("C"));
+        button.get("C").addActionListener(this);
+        clearArea.add(button.get("C"));
+
+        otherArea.setLayout(new GridLayout(3, 2));
         for (Character name : operators) {
             String buttonName = String.valueOf(name);
             button.put(buttonName, new Button(buttonName));
             button.get(buttonName).addActionListener(this);
-            operatorsArea.add(button.get(buttonName));
+            otherArea.add(button.get(buttonName));
         }
         //setBackground(Color.MAGENTA);
-
-        setSize(400, 300);
     }
 
     @Override
