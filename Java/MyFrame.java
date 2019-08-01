@@ -2,12 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
-
-//TODO: HashMap change ArrayList
 public class MyFrame extends Frame implements ActionListener{
-    HashMap<String, Button>button = new HashMap<>();
+    ArrayList<Button>button = new ArrayList<>();
 
     Label resultLabel;
     double result, tmp, digitNumber = 0.1;
@@ -40,11 +37,12 @@ public class MyFrame extends Frame implements ActionListener{
         buttonArea.add(operatorsArea);
 
         numbersArea.setLayout(new GridLayout(4, 3));
-        for (int i = 0; i < 10; i++) {
+        int i;
+        for (i = 0; i < 10; i++) {
             String buttonName = String.valueOf(i);
-            button.put(buttonName, new Button(buttonName));
-            button.get(buttonName).addActionListener(this);
-            numbersArea.add(button.get(buttonName));
+            button.add(new Button(buttonName));
+            button.get(i).addActionListener(this);
+            numbersArea.add(button.get(i));
         }
 
         operatorsArea.setLayout(new GridLayout(2, 1));
@@ -53,17 +51,19 @@ public class MyFrame extends Frame implements ActionListener{
         operatorsArea.add(clearArea);
         operatorsArea.add(otherArea);
 
-        button.put("C", new Button("C"));
-        button.get("C").addActionListener(this);
+        button.add(new Button("C"));
+        button.get(i).addActionListener(this);
         clearArea.setLayout(new GridLayout(1, 1));
-        clearArea.add(button.get("C"));
+        clearArea.add(button.get(i));
+        i++;
 
         otherArea.setLayout(new GridLayout(3, 2));
         for (Character name : operators) {
             String buttonName = String.valueOf(name);
-            button.put(buttonName, new Button(buttonName));
-            button.get(buttonName).addActionListener(this);
-            otherArea.add(button.get(buttonName));
+            button.add(new Button(buttonName));
+            button.get(i).addActionListener(this);
+            otherArea.add(button.get(i));
+            i++;
         }
         //setBackground(Color.MAGENTA);
     }
