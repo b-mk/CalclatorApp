@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MyFrame extends Frame implements ActionListener{
-    ArrayList<Button>button = new ArrayList<>();
 
     Label resultLabel;
     double result, tmp, digitNumber = 0.1;
     char operator = 'n';
     boolean isTmpDemical = false, isOperatorClicked = false;
+    boolean inputAllowed = true;
     ArrayList<Character> operators;
     final int width = 500, height = 400;
 
@@ -37,13 +37,7 @@ public class MyFrame extends Frame implements ActionListener{
         buttonArea.add(operatorsArea);
 
         numbersArea.setLayout(new GridLayout(4, 3));
-        int i;
-        for (i = 0; i < 10; i++) {
-            String buttonName = String.valueOf(i);
-            button.add(new Button(buttonName));
-            button.get(i).addActionListener(this);
-            numbersArea.add(button.get(i));
-        }
+        for (int i = 0; i < 10; i++) addButton(String.valueOf(i), numbersArea);
 
         operatorsArea.setLayout(new GridLayout(2, 1));
         Panel clearArea = new Panel();
@@ -51,21 +45,11 @@ public class MyFrame extends Frame implements ActionListener{
         operatorsArea.add(clearArea);
         operatorsArea.add(otherArea);
 
-        button.add(new Button("C"));
-        button.get(i).addActionListener(this);
         clearArea.setLayout(new GridLayout(1, 1));
-        clearArea.add(button.get(i));
-        i++;
+        addButton("C", clearArea);
 
         otherArea.setLayout(new GridLayout(3, 2));
-        for (Character name : operators) {
-            String buttonName = String.valueOf(name);
-            button.add(new Button(buttonName));
-            button.get(i).addActionListener(this);
-            otherArea.add(button.get(i));
-            i++;
-        }
-        //setBackground(Color.MAGENTA);
+        for (Character name : operators) addButton(String.valueOf(name), otherArea);
     }
 
     @Override
@@ -73,18 +57,22 @@ public class MyFrame extends Frame implements ActionListener{
         Button b = (Button)ae.getSource();
         Character pressedButton = b.getLabel().toCharArray()[0];
         System.out.println(pressedButton + "was clicked.");
+
+        if (pressedButton == 'C') {
+            inputAllowed = true;
+            resultLabel.setText("0");
+            resetTmp();
+            result = 0;
+            operator = 'n';
+            isOperatorClicked = false;
+            return;
+        }
         
+        if (!inputAllowed) return;
         if (pressedButton == '=') {
             resultLabel.setText(calculationResult());
             resetTmp();
             operator = ' ';
-            isOperatorClicked = false;
-        }
-        else if (pressedButton == 'C') {
-            resultLabel.setText("");
-            resetTmp();
-            result = 0;
-            operator = 'n';
             isOperatorClicked = false;
         }
         else if (pressedButton == '.') {
@@ -137,7 +125,10 @@ public class MyFrame extends Frame implements ActionListener{
                     result *= tmp;
                     break;
                 case '/':
-                    if(tmp == 0) return ("Do not divide by 0. Press 'C'.");
+                    if(tmp == 0) {
+                        inputAllowed = false;
+                        return ("Do not divide by 0. Press 'C'.");
+                    }
                     result /= tmp;
                     break;
                 case 'n':
@@ -146,8 +137,16 @@ public class MyFrame extends Frame implements ActionListener{
             }
             return String.valueOf(result);
         } catch(Exception e) {
-            return String.valueOf(e);
+            inputAllowed = false;
+            System.out.println(String.valueOf(e));
+            return("An error has occurred. Press 'C'.");
         }
     }
 
+    private void addButton(String label, Panel p) {
+        String buttonName = label;
+        Button button = new Button(buttonName);
+        button.addActionListener(this);
+        p.add(button);      
+    }
 }
