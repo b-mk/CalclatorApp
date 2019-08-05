@@ -10,8 +10,8 @@ CalculatorApp
 
 ## 使い方
 
-1. 'CalclatorApp\Java'上でコマンドプロンプトを開き、`javac CalculatorApp.java`を入力する
-2. 'java CalculatorApp'を入力すると実行できる
+1. `CalclatorApp/java`上でコマンドプロンプトを開き、`javac CalculatorApp.java`を入力する
+2. `java CalculatorApp`を入力すると実行できる
 
 ## 製作者
 
