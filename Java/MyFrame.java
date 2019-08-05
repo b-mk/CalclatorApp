@@ -18,6 +18,7 @@ public class MyFrame extends Frame implements ActionListener{
         addWindowListener(new MyWindowAdapter());
 
         resultLabel = new Label("0", Label.CENTER);
+        resultLabel.setFont(new Font("Arial", Font.PLAIN, 28));
         operators = new ArrayList<Character>(Arrays.asList('+', '-', '*', '/', '=', '.'));
         
         setLayout(new GridLayout(2, 1));
@@ -146,7 +147,8 @@ public class MyFrame extends Frame implements ActionListener{
     private void addButton(String label, Panel p) {
         String buttonName = label;
         Button button = new Button(buttonName);
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
         button.addActionListener(this);
-        p.add(button);      
+        p.add(button);
     }
 }
